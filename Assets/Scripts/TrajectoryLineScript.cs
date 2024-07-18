@@ -2,17 +2,13 @@ using UnityEngine;
 
 public class TrajectoryLineScript : MonoBehaviour
 {
-    [SerializeField]
-    private LineRenderer lineRenderer;
-    [SerializeField, Min(10)]
-    private int lineSegments = 60;
-    [SerializeField, Min(1)]
-    private float timeofJumpFlight = 5;
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField, Min(10)] private int lineSegments = 60;
+    [SerializeField, Min(1)] private float timeofJumpFlight = 5f;
 
     public void ShowTrajectoryLine(Vector3 startPoint, Vector3 startVelocity)
     {
         float timeStep = timeofJumpFlight / lineSegments;
-
         Vector3[] lineRendererPoints = CalculateTrajectoryLine(startPoint, startVelocity, timeStep);
 
         lineRenderer.positionCount = lineSegments;
