@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class HUDManagement : MonoBehaviour
 {
+    // GameObjects accessed for display.
     public GameObject mainMenuPanel;
     public GameObject levelsMenuPanel;
 
@@ -22,6 +23,7 @@ public class HUDManagement : MonoBehaviour
 
     public Text coinsButtonText;
 
+    // Using it to generate coins using the help of button.
     public int goldCoins;
     public int goldCoinPerClick = 5;
 
@@ -45,6 +47,7 @@ public class HUDManagement : MonoBehaviour
 
     private void OnCoinsMenuBackButtonClicked()
     {
+        // Adds gold coin on every button click.
         goldCoins += goldCoinPerClick;
         coinsButtonText.text = goldCoins.ToString();
     }
