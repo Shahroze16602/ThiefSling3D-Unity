@@ -882,12 +882,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c24445768a11d1a4b893949bca1011b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream:Assets/Scenes/Level1.unity
   playerSpeed: 5
   maxJumpForce: 10
   minDragDistance: 0.1
   maxDragDistance: 1
   ringImage: {fileID: 1751566612}
   circleImage: {fileID: 280572068}
+=======
+  playerSpeed: 3
+  jumpForce: 5
+>>>>>>> Stashed changes:Assets/Scenes/SampleScene.unity
 --- !u!1 &1488700688
 GameObject:
   m_ObjectHideFlags: 0
