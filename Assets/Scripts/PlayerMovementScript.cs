@@ -25,7 +25,6 @@ public class MoveScript : MonoBehaviour
 
     void Update()
     {
-<<<<<<< Updated upstream
         MovePlayer();
         HandleSlingshotJump();
     }
@@ -33,14 +32,10 @@ public class MoveScript : MonoBehaviour
     void MovePlayer()
     {
         transform.Translate(Vector3.forward * playerSpeed * Time.deltaTime);
-=======
-        PlayerJump();
->>>>>>> Stashed changes
     }
 
     void HandleSlingshotJump()
     {
-<<<<<<< Updated upstream
         if (isGrounded)
         {
             if (Input.GetMouseButtonDown(0))
@@ -105,12 +100,6 @@ public class MoveScript : MonoBehaviour
 
         ringImage.gameObject.SetActive(false);
         circleImage.gameObject.SetActive(false);
-=======
-        transform.Translate(Vector3.forward * playerSpeed * Time.deltaTime);
-
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-            playerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
->>>>>>> Stashed changes
     }
 
     private void OnCollisionEnter(Collision collision)
