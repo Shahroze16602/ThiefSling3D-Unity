@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     [SerializeField] private TrajectoryLineScript trajectoryLineScript;
     [SerializeField] private SlowMotionHandler slowMotionHandler;
     [SerializeField] private CameraMovement cameraMovement;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private float cameraMoveDistance = 0.1f;
 
     private Vector3 mouseDownPosition;
@@ -22,9 +23,14 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 
     private void FixedUpdate()
     {
-        if (isGrounded)
+        if (isGrounded && transform.position.y > -1)
         {
             MoveForward();
+        }
+        if (transform.position.y < -10)
+        {
+            Time.timeScale = 0;
+            gameManager.ShowLevelFailedUI();
         }
     }
 
@@ -83,6 +89,7 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         if (isGrounded)
         {
             playerRigidbody.velocity = Vector3.zero;
+            isGrounded = false;
             playerRigidbody.AddForce(force, ForceMode.Impulse);
             trajectoryLineScript.HideTrajectoryLine();
             slowMotionHandler.StopSlowMo();
@@ -93,8 +100,14 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            playerRigidbody.velocity = Vector3.zero;
             isGrounded = true;
+            playerRigidbody.velocity = Vector3.zero;
+        }
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Time.timeScale = 0;
+            gameManager.ShowLevelFailedUI();
         }
     }
 
@@ -112,9 +125,14 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         {
             slowMotionHandler.StartSlowMotion();
         }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            Time.timeScale = 0;
+            gameManager.ShowLevelCompleteUI();
+        }
     }
 
-    // Callbacks for SlowMotionHandler
     void ISlowMotionCallBacks.OnSlowMotionStart()
     {
         cameraMovement.MoveRight(cameraMoveDistance, 0.075f);
