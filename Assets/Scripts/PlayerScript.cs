@@ -4,6 +4,8 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 {
     [SerializeField] private float playerSpeed = 15f;
     [SerializeField] private float maxForce = 20f;
+    [SerializeField] private float minForce = 10f; // Added minForce
+    [SerializeField] private float maxHorizontalAngle = 15f; // Maximum angle for horizontal force
     [SerializeField] private Transform trajectoryLineStartPosition;
     [SerializeField] private TrajectoryLineScript trajectoryLineScript;
     [SerializeField] private SlowMotionHandler slowMotionHandler;
@@ -11,9 +13,10 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float cameraMoveDistance = 0.1f;
 
-    private Vector3 mouseDownPosition;
+    private Vector3 touchStartPosition;
     private Rigidbody playerRigidbody;
     private bool isGrounded = false;
+    private bool isDragging = false;
 
     private void Start()
     {
@@ -34,6 +37,32 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         }
     }
 
+    private void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            HandleTouch(touch);
+        }
+    }
+
+    private void HandleTouch(Touch touch)
+    {
+        switch (touch.phase)
+        {
+            case TouchPhase.Began:
+                OnTouchDown(touch.position);
+                break;
+            case TouchPhase.Moved:
+            case TouchPhase.Stationary:
+                OnTouchDrag(touch.position);
+                break;
+            case TouchPhase.Ended:
+                OnTouchUp(touch.position);
+                break;
+        }
+    }
+
     private void MoveForward()
     {
         Vector3 forwardVelocity = transform.forward * playerSpeed;
@@ -41,32 +70,39 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         playerRigidbody.velocity = new Vector3(currentVelocity.x, currentVelocity.y, forwardVelocity.z);
     }
 
-    private void OnMouseDown()
+    private void OnTouchDown(Vector3 touchPosition)
     {
-        mouseDownPosition = Input.mousePosition;
+        touchStartPosition = touchPosition;
+        isDragging = true;
     }
 
-    private void OnMouseDrag()
+    private void OnTouchDrag(Vector3 touchPosition)
     {
-        if (isGrounded && slowMotionHandler.IsInSlowMo)
+        if (isGrounded && slowMotionHandler.IsInSlowMo && isDragging)
         {
-            DrawTrajectoryLine();
+            DrawTrajectoryLine(touchPosition);
         }
     }
 
-    private void OnMouseUp()
+    private void OnTouchUp(Vector3 touchPosition)
     {
-        if (isGrounded && slowMotionHandler.IsInSlowMo)
+        if (isGrounded && slowMotionHandler.IsInSlowMo && isDragging)
         {
-            Vector3 dragDistance = mouseDownPosition - Input.mousePosition;
+            Vector3 dragDistance = touchStartPosition - touchPosition;
             Vector3 force = CalculateJumpForce(dragDistance);
-            Jump(force);
+
+            if (force.magnitude >= minForce) // Apply minForce restriction
+            {
+                Jump(force);
+            }
+
+            isDragging = false;
         }
     }
 
-    private void DrawTrajectoryLine()
+    private void DrawTrajectoryLine(Vector3 touchPosition)
     {
-        Vector3 dragDistance = mouseDownPosition - Input.mousePosition;
+        Vector3 dragDistance = touchStartPosition - touchPosition;
         Vector3 force = CalculateJumpForce(dragDistance);
         trajectoryLineScript.ShowTrajectoryLine(trajectoryLineStartPosition.position, force);
     }
@@ -77,9 +113,14 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 
         float dragDistanceMagnitude = dragDistance.magnitude / dragFactor;
         Vector3 dragDirection = dragDistance.normalized;
-        float forceMagnitude = Mathf.Clamp(dragDistanceMagnitude, 0, maxForce);
+        float forceMagnitude = Mathf.Clamp(dragDistanceMagnitude, minForce, maxForce);
 
         Vector3 forceDirection = new Vector3(dragDirection.x, Mathf.Abs(dragDirection.y), Mathf.Abs(dragDirection.y)).normalized;
+
+        // Clamp the horizontal angle
+        float angle = Mathf.Atan2(forceDirection.x, forceDirection.y) * Mathf.Rad2Deg;
+        angle = Mathf.Clamp(angle, -maxHorizontalAngle, maxHorizontalAngle);
+        forceDirection.x = Mathf.Tan(angle * Mathf.Deg2Rad) * forceDirection.y;
 
         return forceDirection * forceMagnitude;
     }
