@@ -39,9 +39,16 @@ public class HUDManagement : MonoBehaviour
     public int goldCoins;
     public int goldCoinPerClick = 5;
 
+
+    private void Awake()
+    {
+        LoadGameData();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
         // Manually adding a button listner for better readability and understanding.
         playButton.onClick.AddListener(OnPlayButtonClicked);
         levelsButton.onClick.AddListener(OnLevelsButtonClicked);
@@ -59,21 +66,53 @@ public class HUDManagement : MonoBehaviour
         upgrade3Button.onClick.AddListener(OnUpgrades3ButtonClicked);
         upgrade4Button.onClick.AddListener(OnUpgrades4ButtonClicked);
 
-        coinsButtonText.text = string.Empty;
-
         mainMenuPanel.SetActive(true);
         levelsMenuPanel.SetActive(false);
         upgradesMenuPanel.SetActive(false);
     }
 
-  
 
+    // Update is called once per frame
+    void Update()
+    {
+        SaveGameData();
+
+
+
+        if (goldCoins >= 10)
+            upgrade1Button.interactable = true;
+        if (goldCoins >= 20)
+            upgrade2Button.interactable = true;
+        if (goldCoins >= 30)
+            upgrade3Button.interactable = true;
+        if (goldCoins >= 40)
+            upgrade4Button.interactable = true;
+    }
+
+    public void SaveGameData()
+    {
+        PlayerPrefs.SetInt("GoldCoins", goldCoins);
+        PlayerPrefs.Save();
+    }
+    public void LoadGameData()
+    {
+        if (PlayerPrefs.HasKey("GoldCoins"))
+        {
+            goldCoins = PlayerPrefs.GetInt("GoldCoins");
+            coinsButtonText.text = goldCoins.ToString();
+            Debug.Log("Game data loaded!");
+        }
+        else
+            Debug.LogError("There is no save data!");
     
+    }
+
 
     private void OnCoinsButtonClicked()
     {
         // Adds gold coin on every button click.
         goldCoins += goldCoinPerClick;
+        SaveGameData();
         coinsButtonText.text = goldCoins.ToString();
     }
 
@@ -145,17 +184,5 @@ public class HUDManagement : MonoBehaviour
 
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (goldCoins >= 10)
-            upgrade1Button.interactable = true;
-        if (goldCoins >= 20)
-            upgrade2Button.interactable = true;
-        if (goldCoins >= 30)
-            upgrade3Button.interactable = true;
-        if (goldCoins >= 40)
-            upgrade4Button.interactable = true;
-
-    }
+ 
 }
