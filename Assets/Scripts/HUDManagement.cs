@@ -42,12 +42,13 @@ public class HUDManagement : MonoBehaviour
 
     private void Awake()
     {
-        LoadGameData();
+        coinsButtonText.text = "0";
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        LoadGameData();
 
         // Manually adding a button listner for better readability and understanding.
         playButton.onClick.AddListener(OnPlayButtonClicked);
@@ -76,8 +77,6 @@ public class HUDManagement : MonoBehaviour
     void Update()
     {
         SaveGameData();
-
-
 
         if (goldCoins >= 10)
             upgrade1Button.interactable = true;
