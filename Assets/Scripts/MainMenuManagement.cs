@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class HUDManagement : MonoBehaviour
+public class MainMenuManagement : MonoBehaviour
 {
     // GameObjects accessed for display.
     public GameObject mainMenuPanel;
