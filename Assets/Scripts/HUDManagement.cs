@@ -25,6 +25,7 @@ public class HUDManagement : MonoBehaviour
     // Levels UI.
     public Button levelsMenuBackButton;
     public Button level1Button;
+    public Button level2Button;
 
     // Upgrades Menu UI.
     public Button upgradesMenuBackButton;
@@ -58,6 +59,7 @@ public class HUDManagement : MonoBehaviour
 
         levelsMenuBackButton.onClick.AddListener(OnLevelsMenuBackButtonClicked);
         level1Button.onClick.AddListener(OnLevel1ButtonClicked);
+        level2Button.onClick.AddListener(OnLevel2ButtonClicked);
 
         coinsButton.onClick.AddListener(OnCoinsButtonClicked);
 
@@ -71,6 +73,8 @@ public class HUDManagement : MonoBehaviour
         levelsMenuPanel.SetActive(false);
         upgradesMenuPanel.SetActive(false);
     }
+
+   
 
 
     // Update is called once per frame
@@ -150,6 +154,10 @@ public class HUDManagement : MonoBehaviour
     private void OnLevel1ButtonClicked()
     {
         SceneManager.LoadScene("Level1");
+    }
+    private void OnLevel2ButtonClicked()
+    {
+        SceneManager.LoadScene("Level2");
     }
     #endregion
 
