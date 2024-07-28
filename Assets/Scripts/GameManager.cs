@@ -1,24 +1,37 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject levelCompleteUI;
-    [SerializeField] private GameObject levelFailedUI;
-    [SerializeField] private GameObject TapToPlayUi;
+    public GameObject levelCompleteUI;
+    public GameObject levelFailedUI;
+    public GameObject tapToPlayGameObject;
+
+    public Button pressToPlayButton;
 
     private void Start()
     {
+        pressToPlayButton.onClick.AddListener(OnPressToPlayButtonClicked);
+
+
         Time.timeScale = 0;
-        TapToPlayUi.SetActive(true);
+        tapToPlayGameObject.SetActive(true);
     }
 
-    public void StartLevel()
+    private void OnPressToPlayButtonClicked()
     {
         Time.timeScale = 1.0f;
-        TapToPlayUi.SetActive(false);
+        tapToPlayGameObject.SetActive(false);
     }
+
+    //public void StartLevel()
+    //{
+    //    Time.timeScale = 1.0f;
+    //    tapToPlayGameObject.SetActive(false);
+    //}
 
     public void RestartLevel()
     {
