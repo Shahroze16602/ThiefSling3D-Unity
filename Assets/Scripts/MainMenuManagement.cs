@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class HUDManagement : MonoBehaviour
+public class MainMenuManagement : MonoBehaviour
 {
     // GameObjects accessed for display.
     public GameObject mainMenuPanel;
@@ -25,6 +25,7 @@ public class HUDManagement : MonoBehaviour
     // Levels UI.
     public Button levelsMenuBackButton;
     public Button level1Button;
+    public Button level2Button;
 
     // Upgrades Menu UI.
     public Button upgradesMenuBackButton;
@@ -39,9 +40,17 @@ public class HUDManagement : MonoBehaviour
     public int goldCoins;
     public int goldCoinPerClick = 5;
 
+
+    private void Awake()
+    {
+        coinsButtonText.text = "0";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        LoadGameData();
+
         // Manually adding a button listner for better readability and understanding.
         playButton.onClick.AddListener(OnPlayButtonClicked);
         levelsButton.onClick.AddListener(OnLevelsButtonClicked);
@@ -50,6 +59,7 @@ public class HUDManagement : MonoBehaviour
 
         levelsMenuBackButton.onClick.AddListener(OnLevelsMenuBackButtonClicked);
         level1Button.onClick.AddListener(OnLevel1ButtonClicked);
+        level2Button.onClick.AddListener(OnLevel2ButtonClicked);
 
         coinsButton.onClick.AddListener(OnCoinsButtonClicked);
 
@@ -59,21 +69,53 @@ public class HUDManagement : MonoBehaviour
         upgrade3Button.onClick.AddListener(OnUpgrades3ButtonClicked);
         upgrade4Button.onClick.AddListener(OnUpgrades4ButtonClicked);
 
-        coinsButtonText.text = string.Empty;
-
         mainMenuPanel.SetActive(true);
         levelsMenuPanel.SetActive(false);
         upgradesMenuPanel.SetActive(false);
     }
 
-  
+   
 
+
+    // Update is called once per frame
+    void Update()
+    {
+        SaveGameData();
+
+        if (goldCoins >= 10)
+            upgrade1Button.interactable = true;
+        if (goldCoins >= 20)
+            upgrade2Button.interactable = true;
+        if (goldCoins >= 30)
+            upgrade3Button.interactable = true;
+        if (goldCoins >= 40)
+            upgrade4Button.interactable = true;
+    }
+
+    public void SaveGameData()
+    {
+        PlayerPrefs.SetInt("GoldCoins", goldCoins);
+        PlayerPrefs.Save();
+    }
+    public void LoadGameData()
+    {
+        if (PlayerPrefs.HasKey("GoldCoins"))
+        {
+            goldCoins = PlayerPrefs.GetInt("GoldCoins");
+            coinsButtonText.text = goldCoins.ToString();
+            Debug.Log("Game data loaded!");
+        }
+        else
+            Debug.LogError("There is no save data!");
     
+    }
+
 
     private void OnCoinsButtonClicked()
     {
         // Adds gold coin on every button click.
         goldCoins += goldCoinPerClick;
+        SaveGameData();
         coinsButtonText.text = goldCoins.ToString();
     }
 
@@ -113,6 +155,10 @@ public class HUDManagement : MonoBehaviour
     {
         SceneManager.LoadScene("Level1");
     }
+    private void OnLevel2ButtonClicked()
+    {
+        SceneManager.LoadScene("Level2");
+    }
     #endregion
 
     #region Upgrades Menu UI
@@ -145,17 +191,5 @@ public class HUDManagement : MonoBehaviour
 
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (goldCoins >= 10)
-            upgrade1Button.interactable = true;
-        if (goldCoins >= 20)
-            upgrade2Button.interactable = true;
-        if (goldCoins >= 30)
-            upgrade3Button.interactable = true;
-        if (goldCoins >= 40)
-            upgrade4Button.interactable = true;
-
-    }
+ 
 }
