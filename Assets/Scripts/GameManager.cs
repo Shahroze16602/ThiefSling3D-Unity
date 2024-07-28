@@ -6,32 +6,21 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject levelCompleteUI;
-    public GameObject levelFailedUI;
-    public GameObject tapToPlayGameObject;
-
-    public Button pressToPlayButton;
+    [SerializeField] private GameObject tapToPlayGameObject;
+    [SerializeField] private GameObject levelCompleteUI;
+    [SerializeField] private GameObject levelFailedUI;
 
     private void Start()
     {
-        pressToPlayButton.onClick.AddListener(OnPressToPlayButtonClicked);
-
-
         Time.timeScale = 0;
         tapToPlayGameObject.SetActive(true);
     }
 
-    private void OnPressToPlayButtonClicked()
+    public void StartLevel()
     {
         Time.timeScale = 1.0f;
         tapToPlayGameObject.SetActive(false);
     }
-
-    //public void StartLevel()
-    //{
-    //    Time.timeScale = 1.0f;
-    //    tapToPlayGameObject.SetActive(false);
-    //}
 
     public void RestartLevel()
     {
