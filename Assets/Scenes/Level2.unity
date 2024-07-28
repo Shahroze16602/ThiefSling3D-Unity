@@ -982,6 +982,10 @@ PrefabInstance:
       propertyPath: levelCompleteUI
       value: 
       objectReference: {fileID: 181874704}
+    - target: {fileID: 5904176379432529764, guid: 0b5f020fde44d7448b33957e12bac693, type: 3}
+      propertyPath: tapToPlayGameObject
+      value: 
+      objectReference: {fileID: 296355097}
     - target: {fileID: 7581477735617137622, guid: 0b5f020fde44d7448b33957e12bac693, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2596,7 +2600,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
