@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6203729632395287344}
   - component: {fileID: 5042906740928875935}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CoinCollectedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac4db7a0cb1a2c4aacfc0c9a71a5c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 5042906740928875935}
+  coinsCollected: 0
+  coinsCollectedText: {fileID: 5042906740928875935}
 --- !u!1 &5512480479146179393
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ GameObject:
   - component: {fileID: 683923526393706703}
   - component: {fileID: 7530622040369088027}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CoinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,6 +18,9 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     private bool isGrounded = false;
     private bool isDragging = false;
 
+
+    [SerializeField] private CoinsScript coinsScript;
+
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
