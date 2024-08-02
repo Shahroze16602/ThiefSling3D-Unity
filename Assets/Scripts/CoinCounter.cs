@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class CoinCounter : MonoBehaviour
 {
-    [SerializeField] private TMP_Text text;
-    private int coinsCollected = 0;
+    public int coinsCollected = 0;
+
+    public TMP_Text coinsCollectedText;
 
     private void Start()
     {
-        text.text = coinsCollected.ToString();
+        coinsCollectedText.text = coinsCollected.ToString();
     }
     public void AddCoin()
     {
         coinsCollected++;
-        text.text = coinsCollected.ToString();
+        coinsCollectedText.text = coinsCollected.ToString();
     }
 }
