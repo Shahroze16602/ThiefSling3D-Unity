@@ -30,6 +30,7 @@ public class MainMenuManagement : MonoBehaviour
     public Button upgrade4Button;
 
     public Text coinsText;
+    public AudioSource buttonClickAudioSource;
 
     // Using it to generate coins using the help of button.
     public int totalCoinsCollected;
@@ -106,25 +107,29 @@ public class MainMenuManagement : MonoBehaviour
     private void OnPlayButtonClicked()
     {
         SceneManager.LoadScene("Level1");
+        buttonClickAudioSource.Play();
 
     }
 
     private void OnLevelsButtonClicked()
     {
         mainMenuPanel.SetActive(false);
-        levelsMenuPanel.SetActive(true);
+        levelsMenuPanel.SetActive(true); 
+        buttonClickAudioSource.Play();
 
     }
 
     private void OnUpgradesButtonClicked()
     {
         mainMenuPanel.SetActive(false);
-        upgradesMenuPanel.SetActive(true);
+        upgradesMenuPanel.SetActive(true); 
+        buttonClickAudioSource.Play();
     }
 
     private void OnOptionsButtonClicked()
     {
-        throw new NotImplementedException();
+        buttonClickAudioSource.Play();
+        throw new NotImplementedException(); 
     }
     #endregion
 
@@ -133,14 +138,17 @@ public class MainMenuManagement : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         levelsMenuPanel.SetActive(false);
+        buttonClickAudioSource.Play();
     }
     private void OnLevel1ButtonClicked()
     {
         SceneManager.LoadScene("Level1");
+        buttonClickAudioSource.Play();
     }
     private void OnLevel2ButtonClicked()
     {
         SceneManager.LoadScene("Level2");
+        buttonClickAudioSource.Play();
     }
     #endregion
 
@@ -149,25 +157,30 @@ public class MainMenuManagement : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         upgradesMenuPanel.SetActive(false);
+        buttonClickAudioSource.Play();
     }
 
     private void OnUpgrades1ButtonClicked()
     {
         Debug.Log("Upgrade 1 Equipped");
+        buttonClickAudioSource.Play();
     }
     private void OnUpgrades4ButtonClicked()
     {
-        Debug.Log("Upgrade 2 Equipped"); ;
+        Debug.Log("Upgrade 2 Equipped");
+        buttonClickAudioSource.Play();
     }
 
     private void OnUpgrades3ButtonClicked()
     {
-        Debug.Log("Upgrade 3 Equipped"); ;
+        Debug.Log("Upgrade 3 Equipped");
+        buttonClickAudioSource.Play();
     }
 
     private void OnUpgrades2ButtonClicked()
     {
-        Debug.Log("Upgrade 4 Equipped"); ;
+        Debug.Log("Upgrade 4 Equipped");
+        buttonClickAudioSource.Play();
     }
     #endregion
 
