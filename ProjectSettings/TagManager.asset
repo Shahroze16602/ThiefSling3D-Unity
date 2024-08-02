@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - SlowMoTrigger
   - Obstacle
+  - Coin
   layers:
   - Default
   - TransparentFX
