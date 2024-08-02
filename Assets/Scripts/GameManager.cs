@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -9,6 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject tapToPlayGameObject;
     [SerializeField] private GameObject levelCompleteUI;
     [SerializeField] private GameObject levelFailedUI;
+
+
+    [SerializeField] private CoinsScript coinsScript;
 
     private void Start()
     {

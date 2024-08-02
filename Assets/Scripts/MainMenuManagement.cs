@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,9 +17,6 @@ public class MainMenuManagement : MonoBehaviour
     public Button upgradesButton;
     public Button optionsButton;
 
-    
-    public Button coinsButton;
-
     // Levels UI.
     public Button levelsMenuBackButton;
     public Button level1Button;
@@ -34,16 +29,15 @@ public class MainMenuManagement : MonoBehaviour
     public Button upgrade3Button;
     public Button upgrade4Button;
 
-    public Text coinsButtonText;
+    public Text coinsText;
 
     // Using it to generate coins using the help of button.
-    public int goldCoins;
-    public int goldCoinPerClick = 5;
+    public int totalCoinsCollected;
 
 
     private void Awake()
     {
-        coinsButtonText.text = "0";
+        coinsText.text = "0";
     }
 
     // Start is called before the first frame update
@@ -60,8 +54,6 @@ public class MainMenuManagement : MonoBehaviour
         levelsMenuBackButton.onClick.AddListener(OnLevelsMenuBackButtonClicked);
         level1Button.onClick.AddListener(OnLevel1ButtonClicked);
         level2Button.onClick.AddListener(OnLevel2ButtonClicked);
-
-        coinsButton.onClick.AddListener(OnCoinsButtonClicked);
 
         upgradesMenuBackButton.onClick.AddListener(OnUpgradesMenuBackButtonClicked);
         upgrade1Button.onClick.AddListener(OnUpgrades1ButtonClicked);
@@ -80,43 +72,34 @@ public class MainMenuManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SaveGameData();
+        //SaveGameData();
 
-        if (goldCoins >= 10)
+        if (totalCoinsCollected >= 10)
             upgrade1Button.interactable = true;
-        if (goldCoins >= 20)
+        if (totalCoinsCollected >= 20)
             upgrade2Button.interactable = true;
-        if (goldCoins >= 30)
+        if (totalCoinsCollected >= 30)
             upgrade3Button.interactable = true;
-        if (goldCoins >= 40)
+        if (totalCoinsCollected >= 40)
             upgrade4Button.interactable = true;
     }
 
-    public void SaveGameData()
-    {
-        PlayerPrefs.SetInt("GoldCoins", goldCoins);
-        PlayerPrefs.Save();
-    }
+    //public void SaveGameData()
+    //{
+    //    PlayerPrefs.SetInt("GoldCoins", totalCoinsCollected);
+    //    PlayerPrefs.Save();
+    //}
     public void LoadGameData()
     {
-        if (PlayerPrefs.HasKey("GoldCoins"))
+        if (PlayerPrefs.HasKey("CoinsCollected"))
         {
-            goldCoins = PlayerPrefs.GetInt("GoldCoins");
-            coinsButtonText.text = goldCoins.ToString();
+            totalCoinsCollected = PlayerPrefs.GetInt("CoinsCollected");
+            coinsText.text = totalCoinsCollected.ToString();
             Debug.Log("Game data loaded!");
         }
         else
             Debug.LogError("There is no save data!");
     
-    }
-
-
-    private void OnCoinsButtonClicked()
-    {
-        // Adds gold coin on every button click.
-        goldCoins += goldCoinPerClick;
-        SaveGameData();
-        coinsButtonText.text = goldCoins.ToString();
     }
 
     #region Menu UI
