@@ -1289,6 +1289,10 @@ PrefabInstance:
       propertyPath: timerScript
       value: 
       objectReference: {fileID: 1450257629}
+    - target: {fileID: 2554610691782884018, guid: a768b791a3da0bc47a792eb45b3e50f7, type: 3}
+      propertyPath: m_CustomSkybox
+      value: 
+      objectReference: {fileID: 2100000, guid: c56e28e54cac24b04ae3dd957d214534, type: 2}
     - target: {fileID: 3538184143440012705, guid: a768b791a3da0bc47a792eb45b3e50f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1336,6 +1340,10 @@ PrefabInstance:
     - target: {fileID: 4840083205674120482, guid: a768b791a3da0bc47a792eb45b3e50f7, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986951292471080840, guid: a768b791a3da0bc47a792eb45b3e50f7, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6505972900778714950, guid: a768b791a3da0bc47a792eb45b3e50f7, type: 3}
       propertyPath: lineRenderer
