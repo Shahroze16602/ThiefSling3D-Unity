@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     public void PlayNextLevel()
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int nextSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     public void ShowLevelCompleteUI()

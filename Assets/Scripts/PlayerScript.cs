@@ -1,38 +1,53 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 {
     [SerializeField] private float playerSpeed = 15f;
     [SerializeField] private float maxForce = 20f;
-    [SerializeField] private float minForce = 10f; // Added minForce
-    [SerializeField] private float maxHorizontalAngle = 15f; // Maximum angle for horizontal force
+    [SerializeField] private float minForce = 10f;
+    [SerializeField] private float maxHorizontalAngle = 15f;
     [SerializeField] private Transform trajectoryLineStartPosition;
     [SerializeField] private TrajectoryLineScript trajectoryLineScript;
     [SerializeField] private SlowMotionHandler slowMotionHandler;
     [SerializeField] private CameraMovement cameraMovement;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float cameraMoveDistance = 0.1f;
+    [SerializeField] private CoinsScript coinsScript;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private float landingAnimationThreshold = 0.5f;
 
     private Vector3 touchStartPosition;
     private Rigidbody playerRigidbody;
     private bool isGrounded = false;
     private bool isDragging = false;
+    private bool isChecking = true;
+    private bool isLanding = false;
 
-
-    [SerializeField] private CoinsScript coinsScript;
+    private PlayerAnimationController playerAnimationController;
 
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         slowMotionHandler.SetSlowMotionCallbacks(this);
+        playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
+        playerAnimationController.SetRunning(true);
     }
 
     private void FixedUpdate()
     {
+        CheckGroundStatus();
+
         if (isGrounded && transform.position.y > -1)
         {
             MoveForward();
         }
+        if (transform.position.y < 1)
+        {
+            playerAnimationController.SetFalling(true);
+        }
+
         if (transform.position.y < -10)
         {
             Time.timeScale = 0;
@@ -70,7 +85,10 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     {
         Vector3 forwardVelocity = transform.forward * playerSpeed;
         Vector3 currentVelocity = playerRigidbody.velocity;
-        playerRigidbody.velocity = new Vector3(currentVelocity.x, currentVelocity.y, forwardVelocity.z);
+        if (isGrounded)
+        {
+            playerRigidbody.velocity = new Vector3(currentVelocity.x, currentVelocity.y, forwardVelocity.z);
+        }
     }
 
     private void OnTouchDown(Vector3 touchPosition)
@@ -94,9 +112,9 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
             Vector3 dragDistance = touchStartPosition - touchPosition;
             Vector3 force = CalculateJumpForce(dragDistance);
 
-            if (force.magnitude >= minForce) // Apply minForce restriction
+            if (force.magnitude >= minForce)
             {
-                Jump(force);
+                StartCoroutine(PerformJumpWithDelay(force));
             }
 
             isDragging = false;
@@ -120,7 +138,6 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 
         Vector3 forceDirection = new Vector3(dragDirection.x, Mathf.Abs(dragDirection.y), Mathf.Abs(dragDirection.y)).normalized;
 
-        // Clamp the horizontal angle
         float angle = Mathf.Atan2(forceDirection.x, forceDirection.y) * Mathf.Rad2Deg;
         angle = Mathf.Clamp(angle, -maxHorizontalAngle, maxHorizontalAngle);
         forceDirection.x = Mathf.Tan(angle * Mathf.Deg2Rad) * forceDirection.y;
@@ -128,38 +145,79 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         return forceDirection * forceMagnitude;
     }
 
-    private void Jump(Vector3 force)
+    private IEnumerator PerformJumpWithDelay(Vector3 force)
     {
-        if (isGrounded)
+        playerAnimationController.TriggerJump();
+        trajectoryLineScript.HideTrajectoryLine();
+        slowMotionHandler.StopSlowMo();
+        isChecking = false;
+        yield return new WaitForSeconds(0.0f);
+        isGrounded = false;
+        playerRigidbody.velocity = Vector3.zero;
+        ApplyJumpForce(force);
+    }
+
+    private void ApplyJumpForce(Vector3 force)
+    {
+        playerRigidbody.AddForce(force, ForceMode.Impulse);
+    }
+
+    private void CheckGroundStatus()
+    {
+        Debug.DrawRay(transform.position, Vector3.down * groundCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, Vector3.down * landingAnimationThreshold, Color.green);
+
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, landingAnimationThreshold, groundLayer))
         {
-            playerRigidbody.velocity = Vector3.zero;
-            isGrounded = false;
-            playerRigidbody.AddForce(force, ForceMode.Impulse);
-            trajectoryLineScript.HideTrajectoryLine();
-            slowMotionHandler.StopSlowMo();
+            if (!isLanding)
+            {
+                isLanding = true;
+                playerAnimationController.SetLanded(true);
+            }
+        }
+        else
+        {
+            if (isLanding)
+            {
+                isLanding = false;
+                playerAnimationController.SetLanded(false);
+            }
+        }
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayer))
+        {
+            if (isChecking)
+            {
+                if (!isGrounded)
+                {
+                    isGrounded = true;
+                    playerRigidbody.velocity = Vector3.zero;
+                    playerAnimationController.SetLanded(true);
+                }
+            }
+        }
+        else
+        {
+            if (isChecking)
+            {
+                if (isGrounded)
+                {
+                    isGrounded = false;
+                }
+            }
+            else
+            {
+                isChecking = true;
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-            playerRigidbody.velocity = Vector3.zero;
-        }
-
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             Time.timeScale = 0;
             gameManager.ShowLevelFailedUI();
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
         }
     }
 
