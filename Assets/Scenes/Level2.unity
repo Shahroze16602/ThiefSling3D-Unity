@@ -388,17 +388,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6112112827315765170, guid: 317550d21830c8b4aa61ce46868739e0, type: 3}
   m_PrefabInstance: {fileID: 166730197}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &321941534 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5042906740928875935, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
-  m_PrefabInstance: {fileID: 1563074953}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &402392152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1122,6 +1111,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelCompleteUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1719875152971621444, guid: 85ad89b79e01ddd4fa4be683367b9ea8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3598088959122005362, guid: 85ad89b79e01ddd4fa4be683367b9ea8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1552,6 +1545,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelFailedUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5599108136471822502, guid: 1d79bbd0cbd5055468d2c2c50f3fcd97, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1830,7 +1827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1838,7 +1835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1878,11 +1875,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 455
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: 1263
       objectReference: {fileID: 0}
     - target: {fileID: 7147419040419410856, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1896,10 +1893,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8613836693445539959, guid: 28815e7e94fa37346ae4071c28f5932e, type: 3}
-      propertyPath: coinsCollectedText
-      value: 
-      objectReference: {fileID: 321941534}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1961,7 +1954,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4990207896960996944, guid: e75531722005c3f4e9592b786727144a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
