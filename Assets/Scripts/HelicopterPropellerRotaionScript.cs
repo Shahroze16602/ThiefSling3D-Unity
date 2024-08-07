@@ -15,11 +15,7 @@ public class HelicopterPropellerRotaionScript : MonoBehaviour
 
     float angleYT = 0.0f;
     float angleZT = 50.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
