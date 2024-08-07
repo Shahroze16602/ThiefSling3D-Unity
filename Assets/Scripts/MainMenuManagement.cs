@@ -6,9 +6,13 @@ using UnityEngine.UI;
 public class MainMenuManagement : MonoBehaviour
 {
     // GameObjects accessed for display.
+    public GameObject titleScreenPanel;
     public GameObject mainMenuPanel;
     public GameObject levelsMenuPanel;
     public GameObject upgradesMenuPanel;
+
+    // Title Screen UI
+    public Button titleContinueButton;
 
 
     // Menu UI.
@@ -47,6 +51,7 @@ public class MainMenuManagement : MonoBehaviour
         LoadGameData();
 
         // Manually adding a button listner for better readability and understanding.
+        titleContinueButton.onClick.AddListener(OnTitleContinueButtonClicked);
         playButton.onClick.AddListener(OnPlayButtonClicked);
         levelsButton.onClick.AddListener(OnLevelsButtonClicked);
         upgradesButton.onClick.AddListener(OnUpgradesButtonClicked);
@@ -62,13 +67,18 @@ public class MainMenuManagement : MonoBehaviour
         upgrade3Button.onClick.AddListener(OnUpgrades3ButtonClicked);
         upgrade4Button.onClick.AddListener(OnUpgrades4ButtonClicked);
 
-        mainMenuPanel.SetActive(true);
+        titleScreenPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
         levelsMenuPanel.SetActive(false);
         upgradesMenuPanel.SetActive(false);
     }
 
-   
-
+    private void OnTitleContinueButtonClicked()
+    {
+        titleScreenPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        buttonClickAudioSource.Play();
+    }
 
     // Update is called once per frame
     void Update()
