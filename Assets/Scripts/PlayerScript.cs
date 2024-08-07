@@ -14,16 +14,16 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float cameraMoveDistance = 0.1f;
     [SerializeField] private CoinsScript coinsScript;
-    [SerializeField] private LayerMask groundLayer; // Layer for ground detection
-    [SerializeField] private float groundCheckDistance = 0.1f; // Distance for ground check
-    [SerializeField] private float landingAnimationThreshold = 0.5f; // Threshold distance for landing animation
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private float landingAnimationThreshold = 0.5f;
 
     private Vector3 touchStartPosition;
     private Rigidbody playerRigidbody;
     private bool isGrounded = false;
     private bool isDragging = false;
     private bool isChecking = true;
-    private bool isLanding = false; // To control landing animation
+    private bool isLanding = false;
 
     private PlayerAnimationController playerAnimationController;
 
@@ -32,11 +32,12 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         playerRigidbody = GetComponent<Rigidbody>();
         slowMotionHandler.SetSlowMotionCallbacks(this);
         playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
+        playerAnimationController.SetRunning(true);
     }
 
     private void FixedUpdate()
     {
-        CheckGroundStatus(); // Check if the player is grounded using raycast
+        CheckGroundStatus();
 
         if (isGrounded && transform.position.y > -1)
         {
@@ -163,10 +164,9 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 
     private void CheckGroundStatus()
     {
-        Debug.DrawRay(transform.position, Vector3.down * groundCheckDistance, Color.red); // Draw the debug ray
-        Debug.DrawRay(transform.position, Vector3.down * landingAnimationThreshold, Color.green); // Draw the debug ray
+        Debug.DrawRay(transform.position, Vector3.down * groundCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, Vector3.down * landingAnimationThreshold, Color.green);
 
-        // Check if player is close enough to the ground to trigger the landing animation
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, landingAnimationThreshold, groundLayer))
         {
             if (!isLanding)
@@ -184,7 +184,6 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
             }
         }
 
-        // Check if player is actually grounded
         if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayer))
         {
             if (isChecking)

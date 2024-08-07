@@ -15,6 +15,11 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger("JumpTrigger");
     }
 
+    public void SetRunning(bool isRunning)
+    {
+        animator.SetBool("isRunning", isRunning);
+    }
+
     public void SetLanded(bool isLanded)
     {
         animator.SetBool("isLanded", isLanded);
