@@ -948,7 +948,7 @@ GameObject:
   - component: {fileID: 859155860}
   - component: {fileID: 859155859}
   - component: {fileID: 859155858}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground2
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1581,9 +1581,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1444206570}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Grounds
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1711,7 +1711,7 @@ GameObject:
   - component: {fileID: 1488700691}
   - component: {fileID: 1488700690}
   - component: {fileID: 1488700689}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2150,7 +2150,7 @@ GameObject:
   - component: {fileID: 2081936123}
   - component: {fileID: 2081936122}
   - component: {fileID: 2081936121}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground1
   m_TagString: Ground
   m_Icon: {fileID: 0}
