@@ -56,17 +56,37 @@ public class MainMenuManagement : MonoBehaviour
         LoadGameData();
 
         // Manually adding a button listner for better readability and understanding.
-        playButton.onClick.AddListener(OnPlayButtonClicked); 
+        playButton.onClick.AddListener(OnPlayButtonClicked);
         levelsButton.onClick.AddListener(OnLevelsButtonClicked);
         levelsBackButton.onClick.AddListener(OnLevelsMenuBackButtonClicked);
         creditsButton.onClick.AddListener(OnCreditsButtonClicked);
         creditsBackButton.onClick.AddListener(OnCreditsBackButtonClicked);
 
-        level1Button.onClick.AddListener(() => SceneManager.LoadScene(level1));
-        level2Button.onClick.AddListener(() => SceneManager.LoadScene(level2));
-        level3Button.onClick.AddListener(() => SceneManager.LoadScene(level3));
-        level4Button.onClick.AddListener(() => SceneManager.LoadScene(level4));
-        level5Button.onClick.AddListener(() => SceneManager.LoadScene(level5));
+        level1Button.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(level1);
+            buttonClickAudioSource.Play();
+        });
+        level2Button.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(level2);
+            buttonClickAudioSource.Play();
+        });
+        level3Button.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(level3);
+            buttonClickAudioSource.Play();
+        });
+        level4Button.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(level4);
+            buttonClickAudioSource.Play();
+        });
+        level5Button.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(level5);
+            buttonClickAudioSource.Play();
+        });
 
 
 
@@ -116,7 +136,7 @@ public class MainMenuManagement : MonoBehaviour
         }
         else
             Debug.LogError("There is no save data!");
-    
+
     }
 
     private void OnPlayButtonClicked()
@@ -144,5 +164,5 @@ public class MainMenuManagement : MonoBehaviour
         buttonClickAudioSource.Play();
     }
     #endregion
- 
+
 }
