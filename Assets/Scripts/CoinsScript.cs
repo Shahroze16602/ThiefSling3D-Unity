@@ -5,7 +5,7 @@ public class CoinsScript : MonoBehaviour
     [SerializeField] private float rotationSpeed = 100f;
     [SerializeField] private float floatAmplitude = 0.5f;
     [SerializeField] private float floatFrequency = 1f;
-    
+
     private Vector3 startPosition;
 
     public CoinCounter coinCounter;

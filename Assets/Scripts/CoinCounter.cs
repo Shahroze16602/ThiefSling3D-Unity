@@ -1,11 +1,11 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoinCounter : MonoBehaviour
 {
     public int coinsCollected = 0;
-
-    public TMP_Text coinsCollectedText;
+    public AudioSource coinAudioSource;
+    public Text coinsCollectedText;
 
     private void Start()
     {
@@ -14,6 +14,7 @@ public class CoinCounter : MonoBehaviour
     public void AddCoin()
     {
         coinsCollected++;
+        coinAudioSource.Play();
         coinsCollectedText.text = coinsCollected.ToString();
     }
 }
