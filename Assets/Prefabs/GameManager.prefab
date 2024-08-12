@@ -52,9 +52,9 @@ MonoBehaviour:
   levelFailedUI: {fileID: 0}
   buttonClickAudioSource: {fileID: 5778660253572651847}
   levelEndAudioSource: {fileID: 4314585805382176106}
-  levelFailedAudioClip: {fileID: 8300000, guid: e8152de46e561f945868fbd13b873197, type: 3}
-  levelCompletedAudioClip: {fileID: 8300000, guid: 6d7c575dad88c4143aebb8981d654068, type: 3}
-  coinsScript: {fileID: 0}
+  bgmAudioSource: {fileID: 1660050533005466260}
+  levelFailedAudioClip: {fileID: 8300000, guid: 6c7a84741d40f0341b90befcffd365fd, type: 3}
+  levelCompletedAudioClip: {fileID: 8300000, guid: 8bf7ff45a17e5aa4da2f0bad804b60b6, type: 3}
 --- !u!1 &4397994897988020240
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e8152de46e561f945868fbd13b873197, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -199,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8624104926492243852
 Transform:
   m_ObjectHideFlags: 0
@@ -225,9 +225,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8660810773f2ce845a255f786a8d746e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b5df04e809fb07a4bb35d990d8e5718b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
