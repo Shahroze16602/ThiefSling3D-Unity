@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.1f;
     [SerializeField] private float landingAnimationThreshold = 0.5f;
+    [SerializeField] private GameObject tutorialUI;
 
     private Vector3 touchStartPosition;
     private Rigidbody playerRigidbody;
@@ -25,6 +26,7 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     private bool isChecking = true;
     private bool isLanding = false;
 
+    private bool tutorialShown = false;
     private PlayerAnimationController playerAnimationController;
 
     private void Start()
@@ -33,6 +35,7 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
         slowMotionHandler.SetSlowMotionCallbacks(this);
         playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
         playerAnimationController.SetRunning(true);
+        tutorialShown = false;
     }
 
     private void FixedUpdate()
@@ -93,8 +96,16 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
 
     private void OnTouchDown(Vector3 touchPosition)
     {
-        touchStartPosition = touchPosition;
-        isDragging = true;
+        if (isGrounded && slowMotionHandler.IsInSlowMo)
+        {
+            touchStartPosition = touchPosition;
+            isDragging = true;
+
+            if (tutorialUI != null)
+            {
+                tutorialUI.SetActive(false);
+            }
+        }
     }
 
     private void OnTouchDrag(Vector3 touchPosition)
@@ -238,6 +249,12 @@ public class PlayerScript : MonoBehaviour, ISlowMotionCallBacks
     void ISlowMotionCallBacks.OnSlowMotionStart()
     {
         cameraMovement.MoveRight(cameraMoveDistance, 0.075f);
+
+        if (!tutorialShown && tutorialUI != null)
+        {
+            tutorialUI.SetActive(true);
+            tutorialShown = true;
+        }
     }
 
     void ISlowMotionCallBacks.OnSlowMotionEnd()

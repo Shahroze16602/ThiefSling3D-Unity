@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject levelFailedUI;
     [SerializeField] private AudioSource buttonClickAudioSource;
     [SerializeField] private AudioSource levelEndAudioSource;
+    [SerializeField] private AudioSource bgmAudioSource;
     [SerializeField] private AudioClip levelFailedAudioClip;
     [SerializeField] private AudioClip levelCompletedAudioClip;
 
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
     {
         levelCompleteUI.SetActive(true);
         levelEndAudioSource.clip = levelCompletedAudioClip;
+        bgmAudioSource.Stop();
         levelEndAudioSource.Play();
     }
 
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         levelFailedUI.SetActive(true);
         levelEndAudioSource.clip = levelFailedAudioClip;
+        bgmAudioSource.Stop();
         levelEndAudioSource.Play();
     }
 
