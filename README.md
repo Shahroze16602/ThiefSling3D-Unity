@@ -38,9 +38,9 @@ In Thief Sling 3D, you play as a thief who must escape by reaching a helicopter 
 
 ## Development Team
 
-- **Game Designer:** Tehreem Mehmood - Responsible for conceptualizing the game mechanics, designing the levels, and ensuring a cohesive player experience.
-- **Lead Developer:** Muhammad Shahroze - Developed the core game mechanics, implemented the sling physics, and integrated the mobile controls.
-- **Co-Developer:** Abdul Muhaimin Adnan - Worked alongside the lead developer, created the game UI, added sound effects, and contributed to overall game development.
+- **Game Designer:** Tehreem Mehmood
+- **Lead Developer:** Muhammad Shahroze
+- **Co-Developer:** Abdul Muhaimin Adnan
 
 ## Contributing
 
